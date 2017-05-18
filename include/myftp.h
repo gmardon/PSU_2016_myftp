@@ -37,13 +37,11 @@ typedef struct s_client
 	struct sockaddr_in in;
 	bool connected;
 	char *remote_host;
+	int active_mode;
 	int remote_port;
-	fd_set read_fds;
 	t_file *current_file;
-	int len;
-	char tmp[2048];
 	bool receiving;
-	bool sending;
+	char *transfert_type;
 	t_server *server;
 }						t_client;
 
@@ -62,8 +60,30 @@ char *get_next_line(int fd);
 void *my_malloc(int size);
 char **strsplit(const char* str, const char* delim);
 void close_client(t_client *client);
+void send_data(t_client *client, char *msg);
+//char *get_ip();
 
 // command handlers //
 void handle_user(char **parameters, t_client *client);
 void handle_pass(char **parameters, t_client *client);
+void handle_auth(char **parameters, t_client *client);
+void handle_syst(char **parameters, t_client *client);
+void handle_feat(char **parameters, t_client *client);
+void handle_pwd(char **parameters, t_client *client);
+void handle_type(char **parameters, t_client *client);
+void handle_port(char **parameters, t_client *client);
+void handle_pasv(char **parameters, t_client *client);
+
+static const t_command commands[] = {
+	{"USER", handle_user},
+	{"PASS", handle_pass},
+	{"AUTH", handle_auth},
+	{"SYST", handle_syst},
+	{"FEAT", handle_feat},
+	{"PWD", handle_pwd},
+	{"TYPE", handle_type},
+	{"PORT", handle_port},
+	{"PASV", handle_pasv},
+	{0, 0}
+};
 #endif

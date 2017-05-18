@@ -4,7 +4,7 @@ void handle_user(char **parameters, t_client *client)
 {
     if (strcmp(*parameters, "Anonymous") == 0) 
     {
-        send_data(client, "331\r\n");
+        send_data(client, "331 Username okay, but need password\r\n");
     }
     else
     {

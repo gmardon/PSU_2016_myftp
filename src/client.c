@@ -4,6 +4,7 @@ void send_data(t_client *client, char *msg)
 {
 	if (client->fd)
 	{
+        printf("< %s\n", msg);
 		write(client->fd, msg, strlen(msg));
 	}
 }
@@ -23,7 +24,7 @@ void handle_client(t_client *client)
 	read_size = 0;
 
 	printf("New client connected from <%s:%d>\n", get_client_addr(client->in), get_client_port(client->in));
-    send_data(client, "220\r\n");
+    send_data(client, "220 Hello my friend\r\n");
     while (42)
 	{
         buffer = get_next_line(client->fd);

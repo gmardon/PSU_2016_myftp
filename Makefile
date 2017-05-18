@@ -4,7 +4,22 @@ CC	=	gcc
 
 DIR	=	src/
 
-SRC	=	$(DIR)main.c $(DIR)server.c $(DIR)utils.c $(DIR)client.c $(DIR)client_utils.c $(DIR)get_next_line.c $(DIR)commands/user.c $(DIR)command_handler.c $(DIR)commands/pass.c
+SRC	= $(DIR)main.c \
+	$(DIR)server.c \
+	$(DIR)utils.c \
+	$(DIR)client.c \
+	$(DIR)client_utils.c \
+	$(DIR)get_next_line.c \
+	$(DIR)command_handler.c \
+	$(DIR)commands/user.c \
+	$(DIR)commands/auth.c \
+	$(DIR)commands/pass.c \
+	$(DIR)commands/syst.c \
+	$(DIR)commands/pwd.c \
+	$(DIR)commands/feat.c \
+	$(DIR)commands/type.c \
+	$(DIR)commands/port.c \
+	$(DIR)commands/pasv.c \
 
 OBJS	=	$(SRC:.c=.o)
 
