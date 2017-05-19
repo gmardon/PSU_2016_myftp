@@ -9,6 +9,7 @@ SRC	= $(DIR)main.c \
 	$(DIR)utils.c \
 	$(DIR)client.c \
 	$(DIR)client_utils.c \
+	$(DIR)addr_utils.c \
 	$(DIR)get_next_line.c \
 	$(DIR)command_handler.c \
 	$(DIR)commands/user.c \

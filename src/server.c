@@ -25,7 +25,7 @@ void accept_client(t_server *server)
 
 	length = sizeof(in);
 	if ((socket = accept(server->fd, (struct sockaddr*)&in, &length)) == -1)
-		print_error("Can't accept one client connection", 0);
+		print_error("Can't accept one client connection", -1);
 	else
 	{
 		if (!(client = alloc_new_client(socket, in, server)))

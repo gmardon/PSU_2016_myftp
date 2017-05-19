@@ -30,19 +30,3 @@ char **strsplit(const char* str, const char* delim)
     free(s);
     return tokens;
 }
-/*
-char *get_ip()
-{
-  char s[128];
-  struct hostent *host;
-  struct in_addr **adr;
-  char *ipaddr;
-
-  ipaddr = NULL;
-  if (!gethostname(s, 256))
-    if ((host = gethostbyname(s)) != NULL)
-      for (adr = (struct in_addr **)host->h_addr_list; *adr; adr++)
-	ipaddr = strdup(inet_ntoa(**adr));
-  return (ipaddr);
-}
-*/

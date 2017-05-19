@@ -1,12 +1,20 @@
 #include "myftp.h"
 
-void send_data(t_client *client, char *msg)
+void send_data(t_client *client, char *msg, ...)
 {
+    char *content;
+    char *buffer;
+    int len;
+    va_list args;
+
 	if (client->fd)
 	{
-        printf("< %s\n", msg);
-		write(client->fd, msg, strlen(msg));
-	}
+        va_start(args, msg);
+        len = vasprintf(&content, msg, args);
+        printf("< %s", content);
+        write(client->fd, content, len);
+        va_end(args);
+    }
 }
 
 void close_client(t_client *client)
@@ -35,7 +43,6 @@ void handle_client(t_client *client)
 			//	receiving_file(client, buffer, res);
 			//else
 			//{
-				//buffer[read_id] = '\0';
 				//print_received(client, buffer);
 				handle_command(buffer, client);
 				//memset(buffer, '\0', BUFFER_SIZE);

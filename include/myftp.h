@@ -8,12 +8,14 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/uio.h>
+#include <stdarg.h>
 #include <string.h>
 #define TRUE	1
 #define FALSE	0
 #define MAX_PORT 65535
 #define bool int
 #define BUFFER_SIZE 2048
+#define _GNU_SOURCE 
 
 typedef struct s_file
 {
@@ -34,6 +36,7 @@ typedef struct s_server
 typedef struct s_client
 {
 	int fd;
+	int data_fd;
 	struct sockaddr_in in;
 	bool connected;
 	char *remote_host;
@@ -43,6 +46,7 @@ typedef struct s_client
 	bool receiving;
 	char *transfert_type;
 	t_server *server;
+	char *pwd;
 }						t_client;
 
 typedef struct s_command
@@ -60,7 +64,7 @@ char *get_next_line(int fd);
 void *my_malloc(int size);
 char **strsplit(const char* str, const char* delim);
 void close_client(t_client *client);
-void send_data(t_client *client, char *msg);
+void send_data(t_client *client, char *msg, ...);
 //char *get_ip();
 
 // command handlers //
