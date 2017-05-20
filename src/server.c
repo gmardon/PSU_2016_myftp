@@ -8,10 +8,12 @@ t_client *alloc_new_client(int socket, struct sockaddr_in in, t_server *server)
 		return (NULL);
 	client->fd = socket;
 	client->in = in;
+    client->data_fd = -1;
 	client->connected = TRUE;
 	client->current_file = NULL;
 	client->receiving = FALSE;
 	client->server = server;
+    client->pwd = "/";
 	return (client);
 }
 

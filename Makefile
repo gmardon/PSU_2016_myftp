@@ -21,6 +21,7 @@ SRC	= $(DIR)main.c \
 	$(DIR)commands/type.c \
 	$(DIR)commands/port.c \
 	$(DIR)commands/pasv.c \
+	$(DIR)commands/list.c \
 
 OBJS	=	$(SRC:.c=.o)
 

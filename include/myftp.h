@@ -10,6 +10,7 @@
 #include <sys/uio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <dirent.h>
 #define TRUE	1
 #define FALSE	0
 #define MAX_PORT 65535
@@ -65,6 +66,8 @@ void *my_malloc(int size);
 char **strsplit(const char* str, const char* delim);
 void close_client(t_client *client);
 void send_data(t_client *client, char *msg, ...);
+void send_message(t_client *client, char *msg, ...);
+void close_data(t_client *client);
 //char *get_ip();
 
 // command handlers //
@@ -77,6 +80,7 @@ void handle_pwd(char **parameters, t_client *client);
 void handle_type(char **parameters, t_client *client);
 void handle_port(char **parameters, t_client *client);
 void handle_pasv(char **parameters, t_client *client);
+void handle_list(char **parameters, t_client *client);
 
 static const t_command commands[] = {
 	{"USER", handle_user},
@@ -88,6 +92,7 @@ static const t_command commands[] = {
 	{"TYPE", handle_type},
 	{"PORT", handle_port},
 	{"PASV", handle_pasv},
+	{"LIST", handle_list},
 	{0, 0}
 };
 #endif

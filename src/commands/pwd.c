@@ -2,5 +2,5 @@
 
 void handle_pwd(char **parameters, t_client *client) 
 {
-    send_data(client, "257 /\r\n");
+    send_message(client, "257 %s\r\n", client->pwd);
 }
