@@ -14,6 +14,8 @@ t_client *alloc_new_client(int socket, struct sockaddr_in in, t_server *server)
 	client->receiving = FALSE;
 	client->server = server;
     client->pwd = "/";
+    client->username = NULL;
+    client->password = NULL;
 	return (client);
 }
 
@@ -33,8 +35,10 @@ void accept_client(t_server *server)
 		if (!(client = alloc_new_client(socket, in, server)))
 			return ;
 		child_pid = fork();
-		if (child_pid == 0)
+		if (child_pid == 0) {
+            server->pid = getpid();
 			handle_client(client);
+        }
 	}
 }
 

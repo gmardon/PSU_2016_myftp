@@ -32,6 +32,7 @@ typedef struct s_server
 	int fd;
 	struct sockaddr_in in;
 	char *path;
+	int pid;
 }						t_server;
 
 typedef struct s_client
@@ -48,6 +49,8 @@ typedef struct s_client
 	char *transfert_type;
 	t_server *server;
 	char *pwd;
+	char *username;
+	char *password;
 }						t_client;
 
 typedef struct s_command
@@ -68,6 +71,7 @@ void close_client(t_client *client);
 void send_data(t_client *client, char *msg, ...);
 void send_message(t_client *client, char *msg, ...);
 void close_data(t_client *client);
+char *execute(char *path);
 //char *get_ip();
 
 // command handlers //
@@ -81,6 +85,7 @@ void handle_type(char **parameters, t_client *client);
 void handle_port(char **parameters, t_client *client);
 void handle_pasv(char **parameters, t_client *client);
 void handle_list(char **parameters, t_client *client);
+void handle_help(char **parameters, t_client *client);
 
 static const t_command commands[] = {
 	{"USER", handle_user},
@@ -93,6 +98,7 @@ static const t_command commands[] = {
 	{"PORT", handle_port},
 	{"PASV", handle_pasv},
 	{"LIST", handle_list},
+	{"HELP", handle_help},
 	{0, 0}
 };
 #endif

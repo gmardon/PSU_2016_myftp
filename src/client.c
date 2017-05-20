@@ -6,7 +6,6 @@ void send_data(t_client *client, char *msg, ...)
     int len;
     va_list args;
 
-    printf("send data\n");
 	if (client->data_fd)
 	{
         va_start(args, msg);
