@@ -13,7 +13,6 @@ void send_pasv_informations(t_client *client, char *ip, int port)
 int use_pasv(t_client *client) 
 {
     int sock;
-    int client_fd;
     struct sockaddr_in sin;
     int port;
 

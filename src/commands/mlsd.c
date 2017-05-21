@@ -9,7 +9,7 @@ char *get_file_type(struct dirent *dirent_struct)
     return ("");
 }
 
-void handle_mlsd(char **parameters, t_client *client) 
+void handle_mlsd(__UNUSED__ char **parameters, t_client *client)
 {
     struct dirent *dirent_struct;
     DIR *directory;

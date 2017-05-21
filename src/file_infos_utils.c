@@ -1,6 +1,6 @@
 #include "myftp.h"
 
-void set_modes(char *mode, struct stat *file)
+void set_modes(char mode[], struct stat *file)
 {
     mode[1] = (file->st_mode & S_IRUSR) ? 'r' : '-';
     mode[2] = (file->st_mode & S_IWUSR) ? 'w' : '-';

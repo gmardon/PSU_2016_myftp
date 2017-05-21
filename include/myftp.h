@@ -105,6 +105,7 @@ void handle_mlsd(char **parameters, t_client *client);
 void handle_opts(char **parameters, t_client *client);
 void handle_cwd(char **parameters, t_client *client);
 void handle_noop(char **parameters, t_client *client);
+void handle_quit(char **parameters, t_client *client);
 
 static const t_command commands[] = {
 	{"USER", handle_user},
@@ -122,6 +123,7 @@ static const t_command commands[] = {
 	{"MLSD", handle_mlsd},
 	{"CWD", handle_cwd},
 	{"NOOP", handle_noop},
+	{"QUIT", handle_quit},
 	{0, 0}
 };
 #endif
