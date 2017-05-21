@@ -7,9 +7,11 @@ DIR	=	src/
 SRC	= $(DIR)main.c \
 	$(DIR)server.c \
 	$(DIR)utils.c \
+	$(DIR)file_utils.c \
 	$(DIR)client.c \
 	$(DIR)client_utils.c \
 	$(DIR)addr_utils.c \
+	$(DIR)file_infos_utils.c \
 	$(DIR)get_next_line.c \
 	$(DIR)command_handler.c \
 	$(DIR)commands/user.c \
@@ -23,10 +25,13 @@ SRC	= $(DIR)main.c \
 	$(DIR)commands/pasv.c \
 	$(DIR)commands/list.c \
 	$(DIR)commands/help.c \
+	$(DIR)commands/mlsd.c \
+	$(DIR)commands/opts.c \
+	$(DIR)commands/cwd.c \
 
 OBJS	=	$(SRC:.c=.o)
 
-CFLAGS  = 	-Wall -Wextra -I./include/ 
+CFLAGS  = 	-Wall -Wextra -pedantic -I./include/ 
 
 RM	=	rm -f
 

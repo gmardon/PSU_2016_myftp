@@ -3,7 +3,7 @@
 void handle_type(char **parameters, t_client *client) 
 {
     client->transfert_type = strdup(*parameters);
-    send_message(client, "200 Type : %s\r\n", client->transfert_type);
+    send_message(client, "200 Type set to %s.\r\n", client->transfert_type);
 }
 
 /*

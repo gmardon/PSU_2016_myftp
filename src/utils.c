@@ -30,32 +30,3 @@ char **strsplit(const char* str, const char* delim)
     free(s);
     return tokens;
 }
-
-char *execute(char *path)
-{
-    int process_id;
-    int fork_id;
-    int status;
-    char *output;
-    int cp[2];
-    char      *newargv[] = { NULL };
-    char      *newenviron[] = { NULL };
- 
-
-    if (pipe(cp) == -1)
-        exit(84);
-    status = 0;
-    output = my_malloc(BUFFER_SIZE * 4 * sizeof(char));
-    if ((fork_id = fork()) == 0)
-    {
-        close(1);
-        dup(cp[1]);
-        close(0);
-        close(cp[0]);
-        process_id = execve(path, newargv, newenviron);
-    }
-    close(cp[1]);
-    read(cp[0], output, BUFFER_SIZE * 4);
-    waitpid(fork_id, &status, 0);
-    return (output);
-}

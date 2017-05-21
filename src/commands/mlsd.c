@@ -1,11 +1,20 @@
 #include "myftp.h"
 
-void handle_list(__UNUSED__ char **parameters, t_client *client) 
+char *get_file_type(struct dirent *dirent_struct)
+{
+    if (dirent_struct->d_type == DT_DIR)
+        return ("dir");
+    else if (dirent_struct->d_type == DT_REG)
+        return ("file");
+    return ("");
+}
+
+void handle_mlsd(char **parameters, t_client *client) 
 {
     struct dirent *dirent_struct;
     DIR *directory;
     struct stat file;
-    char buffer[1024];
+    char modes[11];
     
     if (client->data_fd == -1)
         send_message(client, "425 Use PORT or PASV first\r\n");
@@ -16,9 +25,8 @@ void handle_list(__UNUSED__ char **parameters, t_client *client)
         {
             if (stat(dirent_struct->d_name, &file) == 0)
 	        {
-                 memset(&buffer, 0, 1024);
-                 write_file_infos(dirent_struct->d_name, buffer, &file);
-                 send_data(client, "%s\r\n", buffer);
+                set_modes(&modes, &file);
+                send_data(client, "Size=%d;Modify=19990929011440;Perm=%s;Type=%s; %s\r\n", file.st_size, modes, get_file_type(dirent_struct), dirent_struct->d_name);
             }
         }
         close_data(client);

@@ -41,10 +41,12 @@ void close_data(t_client *client)
 
 void close_client(t_client *client)
 {
-    if (client->fd != -1)
-	    close(client->fd);
     if (client->data_fd != -1)
         close(client->data_fd);
+
+    if (client->fd != -1)
+	    close(client->fd);
+
 	printf("Client disconnected <%s:%d>\n", get_client_addr(client->in), get_client_port(client->in));
 	exit(0);
 }
@@ -52,9 +54,6 @@ void close_client(t_client *client)
 void handle_client(t_client *client)
 {
 	char *buffer;
-	int	read_size;
-
-	read_size = 0;
 
 	printf("New client connected from <%s:%d>\n", get_client_addr(client->in), get_client_port(client->in));
     send_message(client, "220 Hello my friend\r\n");
@@ -64,16 +63,9 @@ void handle_client(t_client *client)
 		if (buffer)
 		{
             printf("> %s\n", buffer);
-			//if (client->receiving)
-			//	receiving_file(client, buffer, res);
-			//else
-			//{
-				//print_received(client, buffer);
-				if(!handle_command(buffer, client)) {
-                    send_message(client, "500 Unknown command.\r\n");
-                }
-				//memset(buffer, '\0', BUFFER_SIZE);
-			//}
+            if(!handle_command(buffer, client)) {
+                send_message(client, "500 Unknown command.\r\n");
+            }
 		}
 		else
 			close_client(client);

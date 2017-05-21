@@ -13,9 +13,11 @@ t_client *alloc_new_client(int socket, struct sockaddr_in in, t_server *server)
 	client->current_file = NULL;
 	client->receiving = FALSE;
 	client->server = server;
-    client->pwd = "/";
     client->username = NULL;
     client->password = NULL;
+    client->opts = my_malloc(128 * sizeof(t_opt));
+    client->home = "";
+    memset(client->opts, 0, 128);
 	return (client);
 }
 
@@ -42,14 +44,13 @@ void accept_client(t_server *server)
 	}
 }
 
-t_server		*get_socket(int port)
+t_server *get_socket(int port)
 {
 	t_server	*server;
 	int			opt;
 
 	opt = TRUE;
-	if (!(server = (t_server*)malloc(sizeof(struct s_server))))
-		return (NULL);
+	server = (t_server*)my_malloc(sizeof(struct s_server));
 	if ((server->fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
 		print_error("Can't create socket", -1);
 	server->in.sin_family = AF_INET;
@@ -64,13 +65,17 @@ t_server		*get_socket(int port)
 	return (server);
 }
 
-void init_server(int port, char *path)
+void init_server(int port, char *anonymous_path)
 {
 	t_server *server;
+    char *path;
 
 	if (port > 0 && port <= MAX_PORT)
 	{
 		server = get_socket(port);
+        path = my_malloc(256 * sizeof(char));
+        getcwd(path, 256);
+        server->anonymous_path = concat_path(path, anonymous_path);
 		printf("start on port %d, waiting for connections...\n", port);
 		while (TRUE)
 			accept_client(server);
