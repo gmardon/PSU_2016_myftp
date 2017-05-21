@@ -15,10 +15,10 @@ void handle_mlsd(__UNUSED__ char **parameters, t_client *client)
     DIR *directory;
     struct stat file;
     char modes[11];
-    
+
     if (client->data_fd == -1)
         send_message(client, "425 Use PORT or PASV first\r\n");
-    else 
+    else
     {
         directory = opendir(".");
         while ((dirent_struct = readdir(directory)))
@@ -26,7 +26,10 @@ void handle_mlsd(__UNUSED__ char **parameters, t_client *client)
             if (stat(dirent_struct->d_name, &file) == 0)
 	        {
                 set_modes(&modes, &file);
-                send_data(client, "Size=%d;Modify=19990929011440;Perm=%s;Type=%s; %s\r\n", file.st_size, modes, get_file_type(dirent_struct), dirent_struct->d_name);
+                send_data(client,
+                    "Size=%d;Modify=19990929011440;Perm=%s;Type=%s; %s\r\n",
+                    file.st_size, modes, get_file_type(dirent_struct),
+                    dirent_struct->d_name);
             }
         }
         close_data(client);

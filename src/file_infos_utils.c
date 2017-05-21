@@ -1,3 +1,12 @@
+/*
+** file_infos_utils.c for myftp in /media/gmardon/1aa9b3b8-3e24-4ea9-9b0d-d57254b2d1b9/guillaume.mardon/delivery/PSU_2016_myftp/src/
+**
+** Made by Guillaume MARDON
+** Login   <guillaume.mardon@epitech.eu@epitech.eu>
+**
+** Started on  Mon Nov 28 13:18:53 2016 Guillaume MARDON
+** Last update Fri Dec 16 17:46:00 2016 Guillaume MARDON
+*/
 #include "myftp.h"
 
 void set_modes(char mode[], struct stat *file)
@@ -32,7 +41,9 @@ int write_file_infos(char *filename, char *buffer, struct stat *file)
             return (-1);
         set_modes(mode, file);
         strftime(date, 13, "%b %d %H:%M", localtime(&(file->st_mtime)));
-        sprintf(buffer,"%s %3d %-4s %-4s %8d %12s %s\r\n", mode, file->st_nlink, pass_info->pw_name, group_info->gr_name, file->st_size, date, filename);
+        sprintf(buffer,"%s %3d %-4s %-4s %8d %12s %s\r\n",
+            mode, file->st_nlink, pass_info->pw_name,
+            group_info->gr_name, file->st_size, date, filename);
     }
     return (1);
 }

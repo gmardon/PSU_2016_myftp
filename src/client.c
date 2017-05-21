@@ -1,3 +1,12 @@
+/*
+** client.c for myftp in /media/gmardon/1aa9b3b8-3e24-4ea9-9b0d-d57254b2d1b9/guillaume.mardon/delivery/PSU_2016_myftp/src/
+**
+** Made by Guillaume MARDON
+** Login   <guillaume.mardon@epitech.eu@epitech.eu>
+**
+** Started on  Mon Nov 28 13:18:53 2016 Guillaume MARDON
+** Last update Fri Dec 16 17:46:00 2016 Guillaume MARDON
+*/
 #include "myftp.h"
 
 void send_data(t_client *client, char *msg, ...)
@@ -47,7 +56,8 @@ void close_client(t_client *client)
     if (client->fd != -1)
 	    close(client->fd);
 
-	printf("Client disconnected <%s:%d>\n", get_client_addr(client->in), get_client_port(client->in));
+	printf("Client disconnected <%s:%d>\n",
+        get_client_addr(client->in), get_client_port(client->in));
 	exit(0);
 }
 
@@ -55,7 +65,8 @@ void handle_client(t_client *client)
 {
 	char *buffer;
 
-	printf("New client connected from <%s:%d>\n", get_client_addr(client->in), get_client_port(client->in));
+	printf("New client connected from <%s:%d>\n",
+        get_client_addr(client->in), get_client_port(client->in));
     send_message(client, "220 Hello my friend\r\n");
     while (42)
 	{
@@ -63,7 +74,8 @@ void handle_client(t_client *client)
 		if (buffer)
 		{
             printf("> %s\n", buffer);
-            if(!handle_command(buffer, client)) {
+            if (!handle_command(buffer, client))
+            {
                 send_message(client, "500 Unknown command.\r\n");
             }
 		}

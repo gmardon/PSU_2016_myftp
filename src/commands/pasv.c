@@ -7,7 +7,9 @@ void send_pasv_informations(t_client *client, char *ip, int port)
 
     fport = port / 256;
     sport = port % 256;
-    send_message(client, "227 Entering Passive Mode (127,0,0,1,%d,%d).\r\n", fport, sport);
+    send_message(client,
+        "227 Entering Passive Mode (127,0,0,1,%d,%d).\r\n",
+        fport, sport);
 }
 
 int use_pasv(t_client *client) 
@@ -22,7 +24,8 @@ int use_pasv(t_client *client)
     sin.sin_addr.s_addr = htonl(INADDR_ANY);
     sin.sin_port = htons(port);
     sin.sin_family = AF_INET;
-    while (bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0)
+    while (bind(sock, 
+        (struct sockaddr *) &sin, sizeof(sin)) < 0)
     {
         port++;
         if (port > 65535)
@@ -31,15 +34,13 @@ int use_pasv(t_client *client)
     }
     if (listen(sock, 1) < 0)
         return (-1);
-    //ipaddr = get_ip();
     send_pasv_informations(client, 0, port);
     return (accept(sock, NULL, NULL));
 }
 
-// TODO Add verification on all transfert functions (if user set port or pasv)
-void handle_pasv(char **parameters, t_client *client) 
+
+void handle_pasv(__UNUSED__ char **parameters, t_client *client) 
 {
-    //char *ipaddr;
     client->active_mode = 0;
     if ((client->data_fd = use_pasv(client)) == -1)
         send_message(client, "501 PASV command failed\r\n");
