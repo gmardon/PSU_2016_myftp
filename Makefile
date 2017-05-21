@@ -28,6 +28,7 @@ SRC	= $(DIR)main.c \
 	$(DIR)commands/mlsd.c \
 	$(DIR)commands/opts.c \
 	$(DIR)commands/cwd.c \
+	$(DIR)commands/noop.c \
 
 OBJS	=	$(SRC:.c=.o)
 
